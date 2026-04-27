@@ -1,5 +1,16 @@
 # ShopNow Portfolio Review
 
+![.NET](https://img.shields.io/badge/.NET-ASP.NET%20Core%209-blue)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Docker](https://img.shields.io/badge/Docker-Compose-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UI-38B2AC)
+![JWT](https://img.shields.io/badge/Auth-JWT-green)
+![Architecture](https://img.shields.io/badge/architecture-clean--architecture-blue)
+![Status](https://img.shields.io/badge/status-portfolio--ready-brightgreen)
+
 ## What This Project Demonstrates
 
 ShopNow demonstrates a realistic full-stack e-commerce MVP with customer shopping flows, admin management, authentication, database persistence, validation, testing, and Docker-based local orchestration.
