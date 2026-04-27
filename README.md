@@ -23,17 +23,19 @@ ShopNow is a portfolio-ready full-stack e-commerce MVP built with ASP.NET Core, 
 
 ## Screenshots
 
-Add screenshots before publishing:
+Screenshot placeholders are kept under `docs/screenshots/` for portfolio publishing.
 
-- Home
-- Product listing
-- Product details
-- Cart
-- Checkout
-- My orders
-- Admin dashboard
+![Home](docs/screenshots/home.png)
+![Products](docs/screenshots/products.png)
+![Categories](docs/screenshots/categories.png)
+![Cart](docs/screenshots/cart.png)
+![Checkout](docs/screenshots/checkout.png)
+![My Orders](docs/screenshots/my-orders.png)
+![Admin Dashboard](docs/screenshots/admin-dashboard.png)
 
 ## Demo Login
+
+Demo users are seeded automatically by the backend startup seeder.
 
 ```text
 Admin email: admin@onlineshop.local
@@ -117,13 +119,40 @@ Use `backend/API/appsettings.Example.json` as the safe template. Do not commit p
 
 ## API Overview
 
-- Auth: `/api/auth/register`, `/api/auth/login`
-- Products: `/api/products`, `/api/products/{id}`
-- Categories: `/api/categories`
-- Cart: `/api/cart`, `/api/cart/items`
-- Orders: `/api/orders`, `/api/orders/my-orders`, `/api/orders/admin/all`
-- Payments: `/api/payments`
-- Admin dashboard: `/api/admin/dashboard`
+- Auth:
+  - `POST /api/auth/register`
+  - `POST /api/auth/login`
+- Products:
+  - `GET /api/products`
+  - `GET /api/products/{id}`
+  - `POST /api/products` Admin
+  - `PUT /api/products/{id}` Admin
+  - `DELETE /api/products/{id}` Admin
+- Categories:
+  - `GET /api/categories`
+  - `POST /api/categories` Admin
+  - `PUT /api/categories/{id}` Admin
+  - `DELETE /api/categories/{id}` Admin
+- Cart:
+  - `GET /api/cart`
+  - `POST /api/cart/items`
+  - `PUT /api/cart/items/{id}`
+  - `DELETE /api/cart/items/{id}`
+  - `DELETE /api/cart`
+  - `DELETE /api/cart/clear`
+- Orders:
+  - `POST /api/orders`
+  - `GET /api/orders/my`
+  - `GET /api/orders/my-orders`
+  - `GET /api/orders/{id}`
+  - `GET /api/orders` Admin
+  - `GET /api/orders/admin/all` Admin
+  - `PUT /api/orders/{id}/status` Admin
+  - `PUT /api/orders/{id}/cancel`
+- Payments:
+  - `POST /api/payments`
+- Admin:
+  - `GET /api/admin/dashboard` Admin
 
 ## Project Structure
 
