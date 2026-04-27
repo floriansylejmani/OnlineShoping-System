@@ -1,0 +1,63 @@
+# Build output
+bin/
+obj/
+build/
+dist/
+out/
+
+# .NET
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+*.user
+*.suo
+
+# Node / Next.js
+node_modules/
+.next/
+.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment and local app settings
+.env
+.env.*
+!.env.example
+frontend/.env.local
+backend/API/appsettings.Development.json
+backend/API/appsettings.Local.json
+backend/API/appsettings.Production.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+*.bak
+
+# Logs
+logs/
+*.log
+.artifacts/
+
+# Test and coverage output
+coverage/
+lcov.info
+test-results/
+playwright-report/
+
+# Firebase / deployment local state
+.firebase/
+firebase-debug.log*
+*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

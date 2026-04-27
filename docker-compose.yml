@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: shopnow-postgres
+    environment:
+      POSTGRES_DB: onlineshop
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - shopnow_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d onlineshop"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: shopnow-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=onlineshop;Username=postgres;Password=postgres
+      Jwt__Secret: docker-local-demo-secret-change-before-production-12345
+      Jwt__Issuer: OnlineShopAPI
+      Jwt__Audience: OnlineShopClient
+      Jwt__ExpiryMinutes: 60
+      Cors__AllowedOrigins__0: http://localhost:3000
+    ports:
+      - "5290:8080"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:5290/api
+    container_name: shopnow-frontend
+    depends_on:
+      - api
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:5290/api
+    ports:
+      - "3000:3000"
+
+volumes:
+  shopnow_pgdata:

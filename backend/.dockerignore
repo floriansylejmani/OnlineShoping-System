@@ -1,0 +1,8 @@
+bin
+obj
+TestResults
+*.user
+*.suo
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
