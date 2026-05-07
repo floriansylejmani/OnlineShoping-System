@@ -4,6 +4,8 @@ Base URL: `/api`
 
 Protected endpoints require `Authorization: Bearer <token>`.
 
+This file is the expanded endpoint reference with request examples. Use `docs/API.md` as the concise API overview.
+
 ## Auth
 
 | Method | Endpoint | Auth | Description |
@@ -142,6 +144,8 @@ Valid statuses: `Pending`, `Processing`, `Shipped`, `Delivered`, `Cancelled`.
 
 ## Payments
 
+Payment note: payments are simulated for demo/portfolio purposes. No real payment provider is integrated, no card/CVV data is accepted, stored, logged, or transmitted, and no PCI compliance is claimed.
+
 | Method | Endpoint | Auth | Description |
 | --- | --- | --- | --- |
 | POST | `/payments` | Customer/Admin | Process payment for an order owned by the current user. |
@@ -153,3 +157,5 @@ Payment request:
   "orderId": "order-guid"
 }
 ```
+
+This is a simulated/demo payment endpoint. No real payment provider is integrated. It does not accept, store, log, or transmit card numbers, CVV values, provider tokens, or payment-provider keys. The payment statuses are demo workflow statuses, and no PCI compliance is claimed.

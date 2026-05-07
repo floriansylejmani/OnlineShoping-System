@@ -42,7 +42,8 @@
 ## GitHub Publishing
 
 - [ ] No real secrets committed.
-- [ ] `appsettings.Development.json` not tracked.
+- [ ] `appsettings.json`, `appsettings.Development.json`, and `appsettings.Example.json` contain placeholders or safe local metadata only.
 - [ ] `.env.local` not tracked.
 - [ ] `node_modules`, `.next`, `bin`, and `obj` not tracked.
-- [ ] README includes screenshots before final portfolio publishing.
+- [ ] README clearly states portfolio/demo status and simulated payment limitations.
+- [ ] README includes screenshots or intentionally omits broken placeholder image links before final portfolio publishing.

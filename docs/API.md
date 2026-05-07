@@ -2,6 +2,8 @@
 
 Base URL: `http://localhost:5290/api`
 
+This file is the concise API overview. Use `docs/api-endpoints.md` as the expanded endpoint reference with request examples.
+
 ## Auth
 
 - `POST /auth/register` creates a customer account.
@@ -42,8 +44,13 @@ Base URL: `http://localhost:5290/api`
 
 ## Payments
 
-- `POST /payments` creates a simulated payment for an order.
-- Payment statuses are `Pending`, `Completed`, and `Failed`.
+Payment note: payments are simulated for demo/portfolio purposes. No real payment provider is integrated, no card/CVV data is accepted, stored, logged, or transmitted, and no PCI compliance is claimed.
+
+- `POST /payments` creates a simulated payment for an order owned by the authenticated user.
+- Payment statuses are demo workflow statuses: `Pending`, `Completed`, and `Failed`.
+- No real payment provider is integrated.
+- No card details, CVV, provider token, or payment-provider key is accepted, stored, logged, or transmitted by this demo endpoint.
+- No PCI compliance is claimed.
 
 ## Admin
 

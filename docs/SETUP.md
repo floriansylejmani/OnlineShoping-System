@@ -11,7 +11,7 @@
 Create a local PostgreSQL database matching the default development connection string:
 
 ```text
-Host=localhost;Port=5432;Database=onlineshop;Username=postgres;Password=postgres
+Host=localhost;Port=5432;Database=onlineshop;Username=replace-with-db-user;Password=replace-with-db-password
 ```
 
 The API applies migrations and idempotent demo seed data on startup for local development.
@@ -83,7 +83,7 @@ For local non-Docker development, prefer user secrets or environment variables o
 ```powershell
 dotnet user-secrets init --project backend\API\OnlineShop.API.csproj
 dotnet user-secrets set "Jwt:Secret" "your-local-32-character-minimum-secret" --project backend\API\OnlineShop.API.csproj
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=onlineshop;Username=postgres;Password=postgres" --project backend\API\OnlineShop.API.csproj
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=localhost;Port=5432;Database=onlineshop;Username=your-local-db-user;Password=your-local-db-password" --project backend\API\OnlineShop.API.csproj
 ```
 
 ## Demo Accounts

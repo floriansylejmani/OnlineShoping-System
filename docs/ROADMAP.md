@@ -16,12 +16,15 @@
 - Admin product, category, and order management.
 - Validation filter, rate limiting for auth endpoints, security headers, and config-based CORS.
 - Seeded admin/customer users, 8 categories, and broad demo catalog data.
+- Repository hygiene for Docker/Git ignores, generated report output, local caches, and safe security metadata.
+- Backend authorization checks, HTTP-level admin/protected endpoint tests, and service-level flow tests for auth, catalog, cart, orders, payments, and ownership isolation.
 
 ## Later
 
 - Wishlist.
 - Product reviews and ratings.
 - Stripe or another real payment provider.
+- PCI-aware payment integration if real card payments are required.
 - Email confirmations and order notifications.
 - Discount codes and campaign pricing.
 - Invoice PDF generation.

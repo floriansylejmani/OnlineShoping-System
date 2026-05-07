@@ -1,6 +1,6 @@
 # ShopNow / Online Shopping System
 
-ShopNow is a portfolio-ready full-stack e-commerce MVP built with ASP.NET Core, PostgreSQL, and Next.js. It demonstrates a clean backend architecture, JWT authentication, role-based admin flows, a modern customer storefront, cart and checkout workflows, simulated payments, and an admin dashboard for catalog and order operations.
+ShopNow is a portfolio-grade full-stack e-commerce MVP built with ASP.NET Core, PostgreSQL, and Next.js. It demonstrates clean backend architecture, JWT authentication, role-based admin flows, a customer storefront, cart and checkout workflows, simulated payments, and an admin dashboard for catalog and order operations. This is a portfolio-grade full-stack e-commerce project, not a production-ready payment system or SaaS product.
 
 ## Tech Stack
 
@@ -15,23 +15,23 @@ ShopNow is a portfolio-ready full-stack e-commerce MVP built with ASP.NET Core, 
 - Product browsing with search, category filters, sorting, pagination, and product details.
 - Cart add, update, remove, and clear actions.
 - Checkout from cart into order creation.
-- Simulated payment completion.
+- Simulated payment completion for demo order workflow only.
 - Customer order history and eligible order cancellation.
 - Admin product, category, and order management.
 - Admin dashboard with revenue, order, low-stock, recent-order, and best-seller metrics.
 - Seeded demo users, 8 categories, and broad demo catalog data.
 
+## Project Status
+
+This repository is prepared as a portfolio project. The main customer/admin flows work locally, backend authorization is enforced server-side, and tests cover the important service and route-protection behavior. Production hardening items such as real payment processing, refresh-token revocation, audit logging, platform secret management, and controlled migration rollout are intentionally listed as limitations or roadmap items.
+
+## Simulated Payment Notice
+
+Payments are simulated for demo and portfolio purposes. No real payment provider is integrated, no card or CVV data is accepted, stored, logged, or transmitted, and no PCI compliance is claimed. Payment statuses are demo workflow states used to show order lifecycle behavior.
+
 ## Screenshots
 
-Screenshot placeholders are kept under `docs/screenshots/` for portfolio publishing.
-
-![Home](docs/screenshots/home.png)
-![Products](docs/screenshots/products.png)
-![Categories](docs/screenshots/categories.png)
-![Cart](docs/screenshots/cart.png)
-![Checkout](docs/screenshots/checkout.png)
-![My Orders](docs/screenshots/my-orders.png)
-![Admin Dashboard](docs/screenshots/admin-dashboard.png)
+Add final screenshots under `docs/screenshots/` before publishing the portfolio post. The repository keeps the directory in place but does not include placeholder images.
 
 ## Demo Login
 
@@ -48,7 +48,7 @@ Password: Password123!
 Start PostgreSQL with:
 
 ```text
-Host=localhost;Port=5432;Database=onlineshop;Username=postgres;Password=postgres
+Host=localhost;Port=5432;Database=onlineshop;Username=replace-with-db-user;Password=replace-with-db-password
 ```
 
 Run the backend:
@@ -83,6 +83,8 @@ NEXT_PUBLIC_API_URL=http://localhost:5290/api
 
 ## Docker Setup
 
+Docker Compose is included for local development and portfolio review. It starts PostgreSQL, the ASP.NET Core API, and the Next.js frontend with placeholder defaults. Supply `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `JWT_SECRET` from your shell or an untracked local `.env` file.
+
 Run the full stack:
 
 ```powershell
@@ -107,7 +109,7 @@ docker compose down -v
 Backend values can be supplied through environment variables or user secrets:
 
 ```text
-ConnectionStrings__DefaultConnection=Host=localhost;Port=5432;Database=onlineshop;Username=postgres;Password=postgres
+ConnectionStrings__DefaultConnection=Host=localhost;Port=5432;Database=onlineshop;Username=your-local-db-user;Password=your-local-db-password
 Jwt__Secret=replace-with-a-secure-32-character-minimum-secret
 Jwt__Issuer=OnlineShopAPI
 Jwt__Audience=OnlineShopClient
@@ -115,7 +117,15 @@ Jwt__ExpiryMinutes=60
 Cors__AllowedOrigins__0=http://localhost:3000
 ```
 
-Use `backend/API/appsettings.Example.json` as the safe template. Do not commit production secrets.
+Use `backend/API/appsettings.json`, `backend/API/appsettings.Development.json`, and `backend/API/appsettings.Example.json` as safe templates only. Real database credentials and JWT secrets should come from environment variables, user secrets, a local untracked `.env`, or deployment secrets outside source control.
+
+Docker Compose reads `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `JWT_SECRET` from the shell or a local untracked `.env` file. The committed compose file uses placeholders only.
+
+Local `.env` files are never committed. `.env.example` files are safe metadata because they document required variable names without real secret values.
+
+Generated runtime reports belong under `reports/generated` and should not be committed. Docker and Git ignore local/generated/cache files such as `node_modules`, `.next`, `.pytest_cache`, `__pycache__`, `codearchitect.db`, logs, and `reports/generated`.
+
+AI-assisted reports should use sanitized analyzer data only and must not include real credentials, tokens, private keys, or raw `.env` contents.
 
 ## API Overview
 
@@ -175,6 +185,8 @@ docs/               API, setup, architecture, roadmap, portfolio notes
 
 ## Validation
 
+Backend tests cover auth, password hashing, JWT claims, authorization, ownership isolation, cart/order flows, and simulated payments. Frontend tests cover login, checkout, route guards, the cart API wrapper, and the shared API client. See `docs/TESTING.md` for the testing matrix.
+
 ```powershell
 dotnet build backend\OnlineShop.sln -v minimal -nr:false
 dotnet test backend\Tests\OnlineShop.Tests.csproj -v minimal -nr:false
@@ -191,8 +203,40 @@ npm run build
 docker compose config
 ```
 
+## Security Notes
+
+Passwords are stored with BCrypt hashes, not plaintext. JWT settings include issuer, audience, signing-key, and expiration validation. Admin API actions use role-based authorization on the server; frontend route guards are only UX. Backend authorization is the source of truth. See `docs/SECURITY.md` for the security proof table and configuration notes.
+
+The payment flow is a demo simulation. It accepts only an `orderId`, creates a completed payment record for the authenticated user's order, and has no real payment provider integration. It does not accept, store, log, or transmit card numbers, CVV values, billing tokens, or provider keys. This project does not claim PCI compliance.
+
+## Known Limitations
+
+- Payments are simulated/demo only and are not production payment processing.
+- No real payment provider is integrated and no PCI compliance is claimed.
+- Docker Compose is configured for local development, not hardened production hosting.
+- Production deployment would require stronger hardening, including platform secret management, controlled migrations, HTTPS/HSTS at the hosting edge, observability, backups, and audit logging.
+- Demo credentials are local-only and intentionally known for portfolio walkthroughs.
+- Real secrets must be supplied through environment variables, user secrets, an untracked local `.env`, or deployment secret storage.
+- Frontend JWT persistence uses localStorage; a production-grade auth strategy should use stronger token/session handling.
+- There is no refresh-token revocation, email verification, admin audit log, or production observability stack.
+
 ## Roadmap
 
-Future production-level additions include Stripe, wishlist, reviews, discount codes, email notifications, invoice PDFs, admin audit logs, refresh tokens or HttpOnly cookie auth, and a deployment pipeline.
+Future additions include Stripe or another real payment provider, wishlist, reviews, discount codes, email notifications, invoice PDFs, admin audit logs, refresh tokens or HttpOnly cookie auth, and a deployment pipeline.
 
-More details are in `docs/API.md`, `docs/ARCHITECTURE.md`, `docs/SETUP.md`, `docs/ROADMAP.md`, `docs/PORTFOLIO_REVIEW.md`, and `docs/FINAL_CHECKLIST.md`.
+## Documentation Map
+
+Canonical setup and operations docs:
+
+- `docs/SETUP.md`: local setup.
+- `docs/DOCKER_SETUP.md`: Docker Compose setup.
+- `docs/API.md`: concise API overview.
+- `docs/api-endpoints.md`: expanded API reference.
+- `docs/SECURITY.md`: security and secret-handling notes.
+- `docs/TESTING.md`: test/build commands.
+- `docs/ARCHITECTURE.md`: backend/frontend architecture.
+- `docs/ROADMAP.md`: planned improvements.
+- `docs/PORTFOLIO_REVIEW.md`: portfolio readiness summary.
+- `docs/FINAL_CHECKLIST.md`: publication checklist.
+
+Audit files such as `PROJECT_AUDIT.md` and `docs/PROJECT_AUDIT_REPORT.md` are historical review notes. Prefer the canonical docs above for current setup and API instructions.

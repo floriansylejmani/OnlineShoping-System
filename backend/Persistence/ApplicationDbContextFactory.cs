@@ -7,8 +7,11 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
 {
     public ApplicationDbContext CreateDbContext(string[] args)
     {
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+            ?? "Host=localhost;Database=onlineshop;Username=replace-with-db-user;Password=replace-with-db-password";
+
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseNpgsql("Host=localhost;Database=onlineshop;Username=postgres;Password=postgres")
+            .UseNpgsql(connectionString)
             .Options;
 
         return new ApplicationDbContext(options);

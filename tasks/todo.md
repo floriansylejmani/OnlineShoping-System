@@ -20,3 +20,4 @@
 - [ ] Apply production database migrations.
 - [ ] Configure frontend hosting.
 - [ ] Configure backend CORS for the deployed frontend URL.
+- [ ] Keep payment documented as simulated until a real provider integration exists.

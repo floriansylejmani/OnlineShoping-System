@@ -5,7 +5,7 @@ ARG NEXT_PUBLIC_API_URL=http://localhost:5290/api
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 COPY frontend/package.json frontend/package-lock.json ./frontend/
-RUN npm ci --prefix frontend
+RUN npm ci --legacy-peer-deps --prefix frontend
 
 COPY frontend/ ./frontend/
 RUN npm run build --prefix frontend

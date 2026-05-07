@@ -18,6 +18,7 @@ Production requirements:
 - Secure JWT secret with at least 32 characters
 - HTTPS enabled
 - CORS configured for the deployed frontend domain
+- Real secret values supplied by environment variables or a platform secret store, not committed files
 
 Backend build command:
 
@@ -75,7 +76,7 @@ Backend app settings:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Port=5432;Database=onlineshop;Username=postgres;Password=postgres"
+    "DefaultConnection": "Host=localhost;Port=5432;Database=onlineshop;Username=replace-with-db-user;Password=replace-with-db-password"
   },
   "Jwt": {
     "Secret": "replace-with-a-secure-32-character-minimum-secret",
@@ -88,6 +89,8 @@ Backend app settings:
 
 Production backend values should be configured as environment variables or secret manager values, not committed to source control.
 
+The included payment flow is simulated. A real deployment that charges customers would need a payment provider such as Stripe, provider-side webhooks, secret handling for provider keys, and a PCI-aware integration approach.
+
 ## Pre-Deployment Checklist
 
 - Run backend tests: `dotnet test OnlineShop.sln`
@@ -96,3 +99,4 @@ Production backend values should be configured as environment variables or secre
 - Apply database migrations to production database.
 - Confirm CORS allows the deployed frontend origin.
 - Confirm `NEXT_PUBLIC_API_URL` points to the deployed backend API.
+- Confirm committed config files still contain placeholders only.

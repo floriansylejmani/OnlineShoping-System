@@ -20,14 +20,21 @@ builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 
-var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!;
+var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>()
+    ?? throw new InvalidOperationException("Jwt settings must be configured.");
 if (string.IsNullOrWhiteSpace(jwtOptions.Secret) || jwtOptions.Secret.Length < 32)
 {
     throw new InvalidOperationException("Jwt:Secret must be configured with at least 32 characters.");
 }
 
+if (jwtOptions.ExpiryMinutes <= 0)
+{
+    throw new InvalidOperationException("Jwt:ExpiryMinutes must be greater than zero.");
+}
+
 if (!builder.Environment.IsDevelopment() &&
-    jwtOptions.Secret.Contains("change-this", StringComparison.OrdinalIgnoreCase))
+    (jwtOptions.Secret.Contains("change-this", StringComparison.OrdinalIgnoreCase) ||
+     jwtOptions.Secret.Contains("replace-with", StringComparison.OrdinalIgnoreCase)))
 {
     throw new InvalidOperationException("Jwt:Secret must be supplied from environment or secure configuration outside development.");
 }
@@ -116,7 +123,11 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await db.Database.MigrateAsync();
+    if (app.Environment.IsEnvironment("Testing"))
+        await db.Database.EnsureCreatedAsync();
+    else
+        await db.Database.MigrateAsync();
+
     await DatabaseSeeder.SeedAsync(db);
 }
 
@@ -161,3 +172,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program;

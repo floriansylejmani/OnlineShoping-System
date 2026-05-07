@@ -9,7 +9,7 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UI-38B2AC)
 ![JWT](https://img.shields.io/badge/Auth-JWT-green)
 ![Architecture](https://img.shields.io/badge/architecture-clean--architecture-blue)
-![Status](https://img.shields.io/badge/status-portfolio--ready-brightgreen)
+![Status](https://img.shields.io/badge/status-portfolio--MVP-green)
 
 ## What This Project Demonstrates
 
@@ -25,7 +25,7 @@ ShopNow demonstrates a realistic full-stack e-commerce MVP with customer shoppin
 - BCrypt password hashing.
 - FluentValidation request validation.
 - Global exception handling, logging, rate limiting, and basic security headers.
-- Service-level tests for auth, cart, orders, payments, and admin authorization.
+- Service-level and HTTP-level tests for auth, cart, orders, payments, ownership isolation, and admin authorization.
 
 ## Frontend Skills Shown
 
@@ -54,10 +54,11 @@ ShopNow demonstrates a realistic full-stack e-commerce MVP with customer shoppin
 - CORS configured through settings.
 - Production guard against obvious placeholder JWT secrets.
 - Stack traces hidden from frontend responses.
+- Security proof table is documented in `docs/SECURITY.md`.
 
 ## Still Demo-Level
 
-- Payment is simulated and not integrated with a real provider.
+- Payment is simulated and not integrated with a real provider; no card/CVV data is accepted, stored, logged, or transmitted.
 - JWT is stored in frontend localStorage.
 - Demo credentials are intentionally known.
 - Migrations run on application startup for local convenience.
@@ -66,6 +67,7 @@ ShopNow demonstrates a realistic full-stack e-commerce MVP with customer shoppin
 ## Needed For Production
 
 - Real payment provider such as Stripe.
+- PCI-aware payment-provider integration if real card payments are required.
 - HttpOnly cookie or hardened refresh-token strategy.
 - Secret manager or platform environment secrets.
 - Controlled migration deployment step.

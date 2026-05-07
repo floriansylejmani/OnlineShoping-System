@@ -19,17 +19,14 @@ The project has a solid educational/full-stack baseline: a layered ASP.NET Core 
 - Protected customer and admin route wrappers exist.
 - Backend tests cover the main auth/cart/order/payment/admin-authorization flows.
 
-## What Is Weak
+## Current Limitations
 
-- No central validation pipeline is wired into ASP.NET Core. FluentValidation validators exist, but controllers do not appear to execute them automatically.
-- Error handling is minimal. The API hides unexpected errors but has no structured logging, correlation IDs, or typed problem responses.
-- Query paging values are not clamped, so invalid `page` or very large `pageSize` can cause inefficient queries.
+- Error handling hides unexpected errors but has no structured problem-details contract or correlation IDs.
 - `PaymentService.GetByOrderIdAsync` does not enforce user ownership if exposed later.
 - Startup currently runs migrations automatically. This is convenient for development, but production should use a controlled migration step.
-- Frontend API layer was missing entirely before this audit, so all API calls importing `@/lib/api` were broken.
 - UI is functional but still basic in admin tables/forms and lacks richer empty/error/loading states in several admin screens.
-- No Docker Compose file is present for PostgreSQL + API + frontend.
-- README is useful but should include seeded credentials and exact ports.
+- The payment flow is simulated/demo only and is not a real provider integration.
+- Frontend JWT storage uses localStorage, which is acceptable for this portfolio MVP but should be replaced for a production-grade auth strategy.
 
 ## Bugs Found
 
@@ -42,11 +39,11 @@ The project has a solid educational/full-stack baseline: a layered ASP.NET Core 
 
 ## Security Issues
 
-- JWT secret is stored in `appsettings.json`. For production, move it to environment variables or a secret manager.
+- `appsettings.json` contains a placeholder JWT secret. Real production secrets must come from environment variables or a secret manager.
 - Demo seeded users use a known password. This is acceptable for local development only.
 - No refresh-token flow or token revocation exists.
 - No rate limiting on login/register endpoints.
-- CORS is hardcoded to `http://localhost:3000`; production needs explicit deployed frontend origins.
+- CORS is configured from settings and defaults to `http://localhost:3000`; production needs explicit deployed frontend origins.
 - No HTTPS enforcement or HSTS configuration is present in middleware.
 - No request-size limits or file upload hardening, which matters if product image upload is added.
 - No audit trail for admin catalog/order actions.
@@ -66,14 +63,16 @@ The project has a solid educational/full-stack baseline: a layered ASP.NET Core 
   - Admin: `admin@onlineshop.local`
   - Customer: `customer@onlineshop.local`
   - Password for both: `Password123!`
-- Added 3 categories:
-  - Sweet
-  - Salty
+- Added 8 categories:
+  - Books
   - Drinks
-- Added 60 realistic products total:
-  - 20 Sweet products
-  - 20 Salty products
-  - 20 Drinks products
+  - Electronics
+  - Fashion
+  - Home & Kitchen
+  - Salty
+  - Sports
+  - Sweet
+- Added broad demo catalog data across all categories.
 - Each product has name, description, price, stock, image URL, active status, and category relation.
 - Seeder is idempotent by email, category name, and product name, so backend restarts do not duplicate data.
 
@@ -196,7 +195,7 @@ Command:
 dotnet test backend\Tests\OnlineShop.Tests.csproj -v minimal -nr:false
 ```
 
-Result: Passed. 8 tests passed.
+Result: Passed. Current backend coverage includes service-level flow tests and HTTP-level authorization tests.
 
 ### Frontend Build
 
@@ -219,7 +218,7 @@ Remaining warning:
 Use a local PostgreSQL instance matching:
 
 ```text
-Host=localhost;Port=5432;Database=onlineshop;Username=postgres;Password=postgres
+Host=localhost;Port=5432;Database=onlineshop;Username=replace-with-db-user;Password=replace-with-db-password
 ```
 
 ### Run Backend
@@ -270,10 +269,8 @@ Password: Password123!
 
 ## Next Recommended Steps
 
-1. Wire FluentValidation into ASP.NET Core request validation.
-2. Add Docker Compose for PostgreSQL and document first-run setup.
-3. Add product details page and URL-based product filters.
-4. Add admin dashboard statistics and low-stock indicators.
-5. Move JWT secret and database password out of `appsettings.json`.
-6. Add integration tests for seeded startup behavior and API-level authorization.
-7. Improve README with ports, seed credentials, and troubleshooting for MSBuild `-nr:false`.
+1. Add production deployment pipeline and platform secret management.
+2. Replace localStorage auth with a production-grade token/session strategy when moving beyond portfolio/demo use.
+3. Add a real payment provider such as Stripe if real checkout is required.
+4. Add admin audit logging, structured observability, backup/restore planning, and controlled migration rollout.
+5. Continue UI polish for admin tables, order timelines, empty states, and screenshots before portfolio publishing.

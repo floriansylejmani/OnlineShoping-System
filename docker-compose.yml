@@ -4,14 +4,14 @@ services:
     container_name: shopnow-postgres
     environment:
       POSTGRES_DB: onlineshop
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${POSTGRES_USER:-replace-with-db-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-replace-with-db-password}
     ports:
       - "5432:5432"
     volumes:
       - shopnow_pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d onlineshop"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d onlineshop"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -27,8 +27,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=onlineshop;Username=postgres;Password=postgres
-      Jwt__Secret: docker-local-demo-secret-change-before-production-12345
+      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=onlineshop;Username=${POSTGRES_USER:-replace-with-db-user};Password=${POSTGRES_PASSWORD:-replace-with-db-password}
+      Jwt__Secret: ${JWT_SECRET:-replace-with-secure-32-character-minimum-secret}
       Jwt__Issuer: OnlineShopAPI
       Jwt__Audience: OnlineShopClient
       Jwt__ExpiryMinutes: 60
