@@ -68,7 +68,7 @@ function OrdersContent() {
 
       {isEmpty ? (
         <div className="text-center py-20 space-y-4">
-          <p className="text-4xl">📦</p>
+          <p className="text-3xl font-bold text-blue-600">Orders</p>
           <p className="text-lg font-medium text-gray-700">No orders yet</p>
           <p className="text-sm text-gray-500">Your order history will appear here.</p>
           <Link
@@ -161,7 +161,7 @@ function OrderCard({
           <div key={item.id} className="flex justify-between text-sm">
             <span className="text-gray-700">
               {item.productName}{' '}
-              <span className="text-gray-400">× {item.quantity}</span>
+              <span className="text-gray-400">x {item.quantity}</span>
             </span>
             <span className="text-gray-500">${item.subtotal.toFixed(2)}</span>
           </div>

@@ -26,7 +26,11 @@ Covered areas include:
 | Order ownership | Yes | `backend/Tests/OnlineShopFlowTests.cs` |
 | Simulated payment flow | Yes | `backend/Tests/OnlineShopFlowTests.cs` |
 | Frontend login page | Yes | `frontend/src/app/login/page.test.tsx` |
+| Frontend register page | Yes | `frontend/src/app/register/page.test.tsx` |
+| Frontend cart page | Yes | `frontend/src/app/cart/page.test.tsx` |
 | Frontend checkout page | Yes | `frontend/src/app/checkout/page.test.tsx` |
+| Frontend product detail page | Yes | `frontend/src/app/products/[id]/page.test.tsx` |
+| Frontend my-orders page | Yes | `frontend/src/app/my-orders/page.test.tsx` |
 | Protected route | Yes | `frontend/src/components/protected-route.test.tsx` |
 | Admin route | Yes | `frontend/src/components/admin-route.test.tsx` |
 | Cart API | Yes | `frontend/src/features/cart/cart-api.test.ts` |
@@ -45,7 +49,9 @@ Frontend tests use Vitest, jsdom, and React Testing Library. Tests mock network 
 Covered areas include:
 
 - Login form validation.
+- Register form rendering, validation, and API submission behavior.
 - Catalog UI rendering states.
+- Cart, product detail, checkout, and my-orders page states.
 - API client defaults and cart API endpoint behavior.
 - Protected route and admin route behavior.
 - Checkout empty-cart behavior.

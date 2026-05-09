@@ -1,5 +1,32 @@
 # ShopNow Architecture
 
+ShopNow uses a layered backend and a separate Next.js frontend. The frontend calls the ASP.NET Core API over HTTP; the API owns authentication, authorization, business rules, and persistence. Docker Compose is provided for local development orchestration of PostgreSQL, the API, and the frontend.
+
+```mermaid
+flowchart TB
+  compose[Docker Compose]
+
+  frontend[Next.js Frontend<br/>App Router, React Query, Zustand]
+  api[ASP.NET Core API<br/>Controllers, Auth, Validation, Swagger]
+  app[Application Layer<br/>DTOs, Interfaces, Validators, Results]
+  domain[Domain Layer<br/>Entities, Enums, Core Rules]
+  infra[Infrastructure Services<br/>Auth, Catalog, Cart, Orders, Payments, Seed Data]
+  persistence[Persistence / EF Core<br/>DbContext, Migrations, Repository Access]
+  postgres[(PostgreSQL)]
+
+  compose -. starts .-> frontend
+  compose -. starts .-> api
+  compose -. starts .-> postgres
+
+  frontend -->|HTTP / JSON| api
+  api --> app
+  app --> domain
+  app --> infra
+  infra --> domain
+  infra --> persistence
+  persistence --> postgres
+```
+
 ## Backend
 
 The backend is an ASP.NET Core Web API organized by Clean Architecture-style project boundaries.

@@ -73,7 +73,13 @@ These credentials are local/demo-only and intentionally known for portfolio walk
 
 ## Screenshots
 
-Add final screenshots under `docs/screenshots/` before publishing the portfolio post. The repository keeps the directory in place but does not include placeholder images or broken image links.
+Screenshot guidance is available in [docs/screenshots/README.md](docs/screenshots/README.md). The repository intentionally avoids broken placeholder image links until actual screenshots are added.
+
+## Architecture Summary
+
+The solution separates a Next.js frontend from an ASP.NET Core API and keeps backend concerns split across API, Application, Domain, Infrastructure, and Persistence projects. PostgreSQL is accessed through EF Core, and Docker Compose is included for local development orchestration.
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full architecture notes and diagram.
 
 ## Local Setup
 
@@ -220,7 +226,7 @@ Architecture details are in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 See [docs/TESTING.md](docs/TESTING.md) for the testing matrix.
 
-Backend tests cover auth, password hashing, JWT claims, authorization, ownership isolation, cart/order flows, and simulated payments. Frontend tests cover login, checkout, protected/admin routes, catalog UI, the cart API wrapper, and the shared API client.
+Backend tests cover auth, password hashing, JWT claims, authorization, ownership isolation, cart/order flows, and simulated payments. Frontend tests cover login, register, cart, checkout, product details, my-orders, protected/admin routes, catalog UI, the cart API wrapper, and the shared API client.
 
 ```powershell
 dotnet build backend\OnlineShop.sln -v minimal -nr:false
@@ -276,11 +282,10 @@ Future additions include Stripe or another real payment provider, wishlist, revi
 - [docs/SECURITY.md](docs/SECURITY.md): security and secret-handling notes.
 - [docs/TESTING.md](docs/TESTING.md): test/build commands and coverage matrix.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): backend/frontend architecture.
+- [docs/screenshots/README.md](docs/screenshots/README.md): screenshot capture guide.
 - [docs/ROADMAP.md](docs/ROADMAP.md): planned improvements.
-- [docs/PORTFOLIO_REVIEW.md](docs/PORTFOLIO_REVIEW.md): portfolio readiness summary.
-- [docs/FINAL_CHECKLIST.md](docs/FINAL_CHECKLIST.md): publication checklist.
 
-Audit files such as `PROJECT_AUDIT.md` and `docs/PROJECT_AUDIT_REPORT.md` are historical review notes. Prefer the canonical docs above for current setup and API instructions.
+Historical review notes and internal task files are archived under [docs/archive/](docs/archive/). Prefer the canonical docs above for current setup, API, security, testing, and roadmap information.
 
 ## Portfolio Positioning
 
