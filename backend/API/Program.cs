@@ -123,12 +123,23 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    if (app.Environment.IsEnvironment("Testing"))
-        await db.Database.EnsureCreatedAsync();
-    else
-        await db.Database.MigrateAsync();
 
-    await DatabaseSeeder.SeedAsync(db);
+    if (app.Environment.IsEnvironment("Testing"))
+    {
+        await db.Database.EnsureCreatedAsync();
+        await DatabaseSeeder.SeedAsync(db);
+    }
+    else if (app.Environment.IsDevelopment())
+    {
+        await db.Database.MigrateAsync();
+        await DatabaseSeeder.SeedAsync(db);
+    }
+    else
+    {
+        app.Logger.LogInformation(
+            "Automatic migrations and demo seeding are disabled outside Development/Testing. " +
+            "Apply production migrations through the deployment pipeline.");
+    }
 }
 
 app.UseExceptionHandler(errorApp =>
