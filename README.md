@@ -62,7 +62,7 @@ Payment statuses are demo workflow states used to show order lifecycle behavior.
 
 ## Demo Login
 
-Demo users are seeded automatically by the backend startup seeder.
+Demo users are seeded automatically only in Development and Testing. Production startup does not run demo seeding or automatic migrations.
 
 ```text
 Admin email: admin@onlineshop.local
@@ -77,6 +77,17 @@ These credentials are local/demo-only and intentionally known for portfolio walk
 Screenshot guidance is available in [docs/screenshots/README.md](docs/screenshots/README.md). The repository intentionally avoids broken placeholder image links until actual screenshots are added.
 
 ## Architecture Summary
+
+```mermaid
+flowchart LR
+    BROWSER["Browser"] --> UI["Next.js 15 / React 19"]
+    UI --> API["ASP.NET Core 9 API"]
+    API --> APP["Application"]
+    APP --> DOMAIN["Domain"]
+    API --> INFRA["Infrastructure"]
+    INFRA --> PERSIST["Persistence / EF Core"]
+    PERSIST --> DB[("PostgreSQL")]
+```
 
 The solution separates a Next.js frontend from an ASP.NET Core API and keeps backend concerns split across API, Application, Domain, Infrastructure, and Persistence projects. PostgreSQL is accessed through EF Core, and Docker Compose is included for local development orchestration.
 
@@ -294,6 +305,8 @@ Historical review notes and internal task files are archived under [docs/archive
 This project is intended to show practical full-stack engineering judgment: backend layering, EF Core persistence, authentication and authorization, ownership checks, typed frontend API integration, test coverage, Docker-based local orchestration, and honest documentation of demo-level boundaries.
 
 It should be evaluated as a portfolio MVP, not as a hosted production commerce platform.
+
+GitHub Actions verifies backend build/tests and frontend type-check, lint, tests, and production build. The CI badge at the top of this README is the live source of truth for `main`.
 
 ## License
 
