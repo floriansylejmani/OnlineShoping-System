@@ -1,5 +1,6 @@
 # ShopNow / Online Shopping System
 
+![CI](https://github.com/floriansylejmani/OnlineShoping-System/actions/workflows/ci.yml/badge.svg)
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-9.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
@@ -39,7 +40,7 @@ Production hardening items such as real payment processing, refresh-token revoca
 - Backend: ASP.NET Core 9 Web API, EF Core, PostgreSQL, JWT, BCrypt, FluentValidation, xUnit.
 - Frontend: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS, React Query, Zustand, Axios.
 - Testing: xUnit, SQLite test database, WebApplicationFactory, Vitest, jsdom, React Testing Library.
-- DevOps: Docker Compose for local development.
+- DevOps: Docker Compose for local development and GitHub Actions CI for backend/frontend validation.
 
 ## Features
 
@@ -266,6 +267,7 @@ See [docs/SECURITY.md](docs/SECURITY.md) for the security proof table and config
 - Frontend JWT persistence uses localStorage; a production-grade auth strategy should use stronger token/session handling.
 - Startup migrations are convenient for local development but should be a controlled production deployment step.
 - There is no refresh-token revocation, email verification, admin audit log, production observability stack, or backup/restore plan.
+- Automatic database migrations and demo-user seeding are disabled outside Development/Testing; production migrations should run as a controlled deployment step.
 
 ## Roadmap
 
