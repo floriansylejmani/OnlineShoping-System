@@ -63,3 +63,11 @@ Security documentation and analyzer source files are safe to keep in the reposit
 - No card number, CVV, billing token, payment-provider secret, or webhook secret is accepted, stored, logged, or transmitted.
 - Payment statuses are demo workflow statuses.
 - The project does not claim PCI compliance or production payment processing.
+
+
+## Production startup safety
+
+- Automatic database migrations and demo-user seeding run only in Development/Testing.
+- Production startup leaves schema changes to a controlled deployment step.
+- Known demo accounts and passwords are never created automatically in Production.
+- Real deployments should add managed secret storage, HTTPS termination, observability, backups, refresh-token/session hardening, and a real payment-provider security model before accepting live traffic.
