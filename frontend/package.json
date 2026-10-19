@@ -13,32 +13,32 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
-    "@tanstack/react-query": "^5.103.1",
-    "axios": "^1.15.2",
-    "next": "15.5.15",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-hook-form": "^7.73.1",
-    "zod": "^4.6.5",
-    "zustand": "^5.0.12"
+    "@hookform/resolvers": "^5.9.1",
+    "@tanstack/react-query": "^5.104.3",
+    "axios": "^1.20.0",
+    "next": "15.5.28",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-hook-form": "^7.90.0",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@testing-library/dom": "^10.4.1",
+    "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.7",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^6.1.2",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^15.5.15",
+    "eslint-config-next": "^15.5.28",
     "jsdom": "^26.1.0",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.12"
   }
 }
